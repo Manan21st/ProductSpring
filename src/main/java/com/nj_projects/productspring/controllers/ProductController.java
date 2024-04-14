@@ -2,6 +2,7 @@ package com.nj_projects.productspring.controllers;
 
 import com.nj_projects.productspring.models.Product;
 import com.nj_projects.productspring.services.ProductService;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -11,7 +12,7 @@ import java.util.List;
 public class ProductController {
     private ProductService productService;
 
-    public ProductController(ProductService productService){
+    public ProductController(@Qualifier("SelfProductService") ProductService productService){
         this.productService=productService;
     }
 
