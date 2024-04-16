@@ -1,5 +1,6 @@
 package com.nj_projects.productspring.services;
 
+import com.nj_projects.productspring.exceptions.CategoryNotFoundException;
 import com.nj_projects.productspring.exceptions.ProductNotFoundException;
 import com.nj_projects.productspring.models.Category;
 import com.nj_projects.productspring.models.Product;
@@ -43,7 +44,10 @@ public class SelfProductService implements ProductService{
             product.setCategory(categoryRepository.save(category));
         }
         Product tempProduct = productRepository.save(product);
-        Optional<Category> tempCategory = categoryRepository.findById(tempProduct.getId());
+        Optional<Category> tempCategory = categoryRepository.findById(category.getId());
+        if(tempCategory.isEmpty()){
+            throw new CategoryNotFoundException("Invalid category id passed");
+        }
         tempProduct.setCategory(tempCategory.get());
         return tempProduct;
     }
